@@ -638,8 +638,8 @@ const getCampaigns = async (req, res) => {
     try {
         const campaigns = await prisma_1.default.campaign.findMany();
         const brands = await prisma_1.default.brand.findMany();
-        const campaignsWithBrand = campaigns.map(c => {
-            const brand = brands.find(b => b.userId === c.brandId);
+        const campaignsWithBrand = campaigns.map((c) => {
+            const brand = brands.find((b) => b.userId === c.brandId);
             return {
                 ...c,
                 brand: brand ? {
@@ -716,9 +716,9 @@ const getInvitations = async (req, res) => {
         // Join brand details and campaign titles in-memory
         const campaigns = await prisma_1.default.campaign.findMany();
         const brands = await prisma_1.default.brand.findMany();
-        const joinedInvites = invitations.map(inv => {
-            const campaign = campaigns.find(c => c.id === inv.campaignId);
-            const brand = brands.find(b => b.userId === inv.brandId);
+        const joinedInvites = invitations.map((inv) => {
+            const campaign = campaigns.find((c) => c.id === inv.campaignId);
+            const brand = brands.find((b) => b.userId === inv.brandId);
             return {
                 ...inv,
                 campaignTitle: campaign?.title || "Campaign Proposal",
@@ -814,9 +814,9 @@ const getApplications = async (req, res) => {
         const applications = await prisma_1.default.application.findMany();
         const campaigns = await prisma_1.default.campaign.findMany();
         const influencers = await prisma_1.default.influencer.findMany({ include: { user: true } });
-        const joinedApps = applications.map(app => {
-            const campaign = campaigns.find(c => c.id === app.campaignId);
-            const influencer = influencers.find(i => i.userId === app.influencerId);
+        const joinedApps = applications.map((app) => {
+            const campaign = campaigns.find((c) => c.id === app.campaignId);
+            const influencer = influencers.find((i) => i.userId === app.influencerId);
             return {
                 ...app,
                 campaignTitle: campaign?.title || "Campaign Proposal",
@@ -829,10 +829,10 @@ const getApplications = async (req, res) => {
         });
         let filteredApps;
         if (role === "brand_owner") {
-            filteredApps = joinedApps.filter(app => app.campaignBrandId === userId);
+            filteredApps = joinedApps.filter((app) => app.campaignBrandId === userId);
         }
         else if (role === "influencer") {
-            filteredApps = joinedApps.filter(app => app.influencerId === userId);
+            filteredApps = joinedApps.filter((app) => app.influencerId === userId);
         }
         else {
             filteredApps = joinedApps;
