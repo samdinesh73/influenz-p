@@ -4,6 +4,7 @@
   "description": "Standalone Express REST API for Influenz Marketplace",
   "main": "dist/index.js",
   "scripts": {
+    "postinstall": "prisma generate",
     "build": "tsc",
     "start": "node dist/index.js",
     "dev": "nodemon src/index.ts"
